@@ -55,8 +55,9 @@ const SubscriptionForm = () => {
       const newSubscription = await createSubscription(subscription);
 
       console.log("New Subscription:", newSubscription);
-
-      // You can perform any additional actions after successful form submission
+      setGridDetails([])
+      setSubscriptionName('')
+      
     } catch (error) {
       console.error("Error creating subscription:", error);
       // Handle any error that occurred during API call
