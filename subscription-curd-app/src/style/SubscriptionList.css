@@ -4,36 +4,22 @@
     border: 1px solid #ccc;
     padding: 10px;
     margin-bottom: 20px;
-  }
-  
-  .subscription-container h3 {
+}
+
+.subscription-container h3 {
     margin-top: 0;
-  }
-  
-  .subscription-container ul {
+}
+
+.subscription-container ul {
     list-style-type: none;
     padding: 0;
-  }
-  
-  .subscription-container li {
+}
+
+.subscription-container li {
     margin-bottom: 5px;
-  }
-  
-  .edit-form {
-    margin-top: 10px;
-  }
-  
-  .edit-form label {
-    display: block;
-  }
-  
-  .edit-form input {
-    width: 40%;
-    padding: 5px;
-    margin-bottom: 5px;
-  }
-  
-  .edit-form button {
+}
+
+.edit-button {
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -41,13 +27,17 @@
     padding: 5px 10px;
     font-size: 16px;
     border-radius: 4px;
-  }
-  
-  .remove-button {
+    margin-left: 10px;
+}
+
+.remove-button {
     background-color: #dc3545;
     margin-left: 10px;
-  }
-  
+    font-size: 16px;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -59,28 +49,28 @@
     justify-content: center;
     align-items: center;
     z-index: 999;
-  }
-  
-  .modal-content {
+}
+
+.modal-content {
     background-color: #fff;
     border-radius: 5px;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     width: 300px;
-  }
-  
-  .modal-content label {
+}
+
+.modal-content label {
     display: block;
     margin-bottom: 5px;
-  }
-  
-  .modal-content input {
+}
+
+.modal-content input {
     width: 100%;
     padding: 5px;
     margin-bottom: 10px;
-  }
-  
-  .modal-content button {
+}
+
+.modal-content button {
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -88,10 +78,9 @@
     padding: 5px 10px;
     font-size: 16px;
     border-radius: 4px;
-  }
-  
-  .close-button {
-    background-color: #dc3545;
+}
+
+.close-button {
+    background-color: #f53044 !important;
     margin-left: 10px;
-  }
-  
+}

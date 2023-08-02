@@ -46,6 +46,21 @@ const SubscriptionList = () => {
     setShowEditModal(false);
   };
 
+  const handleRemove = (subscriptionId, date) => {
+    setSubscriptions((prevSubscriptions) =>
+      prevSubscriptions.map((subscription) => {
+        if (subscription.id === subscriptionId) {
+          return {
+            ...subscription,
+            gridDetails: subscription.gridDetails.filter((gridDetail) => gridDetail.date !== date),
+          };
+        }
+        return subscription;
+      })
+    );
+  };
+  
+
   return (
     <div>
       <h2>Subscription List</h2>
@@ -56,10 +71,12 @@ const SubscriptionList = () => {
             {subscription.gridDetails.map((gridDetail, index) => (
               <li key={index}>
                 Date: {gridDetail.date}, Start Time: {gridDetail.startTime}, End Time: {gridDetail.endTime}
-                <button onClick={() => handleEditRow({ ...gridDetail, subscriptionId: subscription.id })}>
+                <button className="edit-button" onClick={() => handleEditRow({ ...gridDetail, subscriptionId: subscription.id })}>
                   Edit
                 </button>
+                <button className="remove-button" onClick={() => handleRemove(subscription.id, gridDetail.date)}>Remove</button>
               </li>
+              
             ))}
           </ul>
         </div>

@@ -1,13 +1,18 @@
-import './App.css';
+import "./App.css";
 import SubscriptionForm from "./components/SubscriptionForm";
-import SubscriptionList from './components/SubscriptionList';
+import SubscriptionList from "./components/SubscriptionList";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Subscription App</h1>
-      <SubscriptionList/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<SubscriptionForm />}>
+        </Route>
+        <Route path="/List" element={<SubscriptionList />}>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
