@@ -1,12 +1,9 @@
-// subscriptionService.js
 import axios from "axios";
 
-const BASE_URL = "http://localhost:4800"; // Replace with your backend URL
+const BASE_URL = "http://localhost:4800";
 
 export const fetchSubscriptions = async () => {
-  console.log('i am');
   const response = await axios.get(`${BASE_URL}/subscriptions`);
-  console.log(response.data);
   return response.data;
 };
 

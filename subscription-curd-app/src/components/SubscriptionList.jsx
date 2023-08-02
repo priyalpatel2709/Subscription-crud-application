@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../style/SubscriptionList.css"; 
-import {fetchSubscriptions } from '../services/subscriptionService'
+import {fetchSubscriptions,deleteSubscriptionDate,deleteSubscription } from '../services/subscriptionService'
+import { Link } from "react-router-dom";
 
 const SubscriptionList = () => {
   // Dummy subscription data
@@ -44,27 +45,34 @@ const SubscriptionList = () => {
     setShowEditModal(false);
   };
 
-  const handleRemove = (subscriptionId, date) => {
-    setSubscriptions((prevSubscriptions) =>
-      prevSubscriptions.map((subscription) => {
-        if (subscription.id === subscriptionId) {
-          return {
-            ...subscription,
-            gridDetails: subscription.gridDetails.filter((gridDetail) => gridDetail.date !== date),
-          };
-        }
-        return subscription;
-      })
-    );
+  const handleRemoveDate = async (subscriptionId, date) => {
+    try{
+      let remove = await deleteSubscriptionDate(subscriptionId, date)
+      loadData()
+      console.log(remove);
+    }catch (err){
+      console.log(err);
+    }
   };
+
+  const handleRemoveUser = async (id)=>{
+    try{
+      let result =  await deleteSubscription(id)
+      loadData()
+      console.log(result);
+    }catch(err){
+      console.log(err);
+    }
+  }
   
 
   return (
     <div>
       <h2>Subscription List</h2>
       {subscriptions.map((subscription) => (
-        <div key={subscription.id} className="subscription-container">
-          <h3>{subscription.name}</h3>
+        <div key={subscription._id} className="subscription-container">
+          <h3>{subscription.name}</h3> 
+          <button className="remove-button" onClick={() => handleRemoveUser(subscription._id)}>Remove</button>
           <ul>
             {subscription.gridDetails.map((gridDetail, index) => (
               <li key={index}>
@@ -72,7 +80,7 @@ const SubscriptionList = () => {
                 <button className="edit-button" onClick={() => handleEditRow({ ...gridDetail, subscriptionId: subscription.id })}>
                   Edit
                 </button>
-                <button className="remove-button" onClick={() => handleRemove(subscription.id, gridDetail.date)}>Remove</button>
+                <button className="remove-button" onClick={() => handleRemoveDate(subscription._id, gridDetail._id)}>Remove</button>
               </li>
               
             ))}
@@ -116,6 +124,10 @@ const SubscriptionList = () => {
           </div>
         </div>
       )}
+            <span>
+       
+       Add <Link to="/">New Subscribers</Link>
+     </span>
     </div>
   );
 };

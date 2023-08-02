@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import '../style/SubscriptionForm.css'
-import { validateGridDetails } from "../utils/utils"; 
+import "../style/SubscriptionForm.css";
+import { validateGridDetails } from "../utils/utils";
+import { createSubscription } from "../services/subscriptionService";
+import { Link } from "react-router-dom";
 
 const SubscriptionForm = () => {
   const [subscriptionName, setSubscriptionName] = useState("");
@@ -31,19 +33,34 @@ const SubscriptionForm = () => {
   };
 
   // Function to handle form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const validationErrors = validateGridDetails(gridDetails);
 
     if (validationErrors.length > 0) {
       // If there are validation errors, display them and prevent form submission
       console.log("Validation errors:", validationErrors);
-      alert(validationErrors)
+      alert(validationErrors);
       return;
     }
-    console.log("subscriptionName", subscriptionName);
-    console.log("gridDetails", gridDetails);
-    // Implement form submission logic here
+
+    try {
+      // Create the subscription object with subscriptionName and gridDetails
+      const subscription = {
+        name: subscriptionName,
+        gridDetails: gridDetails,
+      };
+
+      // Call the createSubscription function to make the API request
+      const newSubscription = await createSubscription(subscription);
+
+      console.log("New Subscription:", newSubscription);
+
+      // You can perform any additional actions after successful form submission
+    } catch (error) {
+      console.error("Error creating subscription:", error);
+      // Handle any error that occurred during API call
+    }
   };
 
   return (
@@ -119,6 +136,10 @@ const SubscriptionForm = () => {
           <button type="submit">Submit</button>
         </div>
       </form>
+      <span>
+       
+        Go To <Link to="/list">subscribers List</Link>
+      </span>
     </div>
   );
 };

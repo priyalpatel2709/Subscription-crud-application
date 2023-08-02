@@ -12,7 +12,7 @@ app.get("/", (req, resp) => {
 
 app.post("/subscriptions", async (req, res) => {
   console.log("req.body", req.body);
-  const { id, name, gridDetails } = req.body;
+  const { name, gridDetails } = req.body;
 
   try {
     // Create an array to hold the grid details
@@ -26,7 +26,6 @@ app.post("/subscriptions", async (req, res) => {
 
     // Create a new subscription with the array of gridDetails
     const newSubscription = new Subscription({
-      id,
       name,
       gridDetails: gridDetailsArray,
     });

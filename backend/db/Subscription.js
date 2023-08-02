@@ -9,7 +9,7 @@ const gridDetailSchema = new mongoose.Schema({
 
 // Define the schema for the subscription
 const subscriptionSchema = new mongoose.Schema({
-  id: { type: Number, required: true },
+  // id: { type: Number, required: true },
   name: { type: String, required: true },
   gridDetails: [gridDetailSchema], // Embed the grid details schema as an array
 });
