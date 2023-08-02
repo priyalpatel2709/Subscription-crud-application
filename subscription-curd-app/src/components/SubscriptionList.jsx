@@ -1,26 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/SubscriptionList.css"; 
+import {fetchSubscriptions } from '../services/subscriptionService'
 
 const SubscriptionList = () => {
   // Dummy subscription data
-  const [subscriptions, setSubscriptions] = useState([
-    {
-      id: 1,
-      name: "Subscription 1",
-      gridDetails: [
-        { date: "2023-08-02", startTime: "10:00", endTime: "12:00" },
-        { date: "2023-08-03", startTime: "14:00", endTime: "16:00" },
-      ],
-    },
-    {
-      id: 2,
-      name: "Subscription 2",
-      gridDetails: [
-        { date: "2023-08-04", startTime: "09:00", endTime: "11:00" },
-        { date: "2023-08-05", startTime: "13:00", endTime: "15:00" },
-      ],
-    },
-  ]);
+  const [subscriptions, setSubscriptions] = useState([]);
+  
+
+  useEffect(()=>{
+    loadData()
+  },[])
+
+  const loadData =async ()=>{
+    try{
+      const fetchedSubscriptions = await fetchSubscriptions();
+      setSubscriptions(fetchedSubscriptions)
+    }catch (err){
+      console.log(err);
+    }
+  }
 
   const [showEditModal, setShowEditModal] = useState(false);
   const [editedGridDetails, setEditedGridDetails] = useState({});

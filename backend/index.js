@@ -4,6 +4,7 @@ const cors = require("cors");
 app.use(express.json());
 require("./db/config");
 const Subscription = require("./db/Subscription");
+app.use(cors());
 
 app.get("/", (req, resp) => {
   resp.send("working...");
