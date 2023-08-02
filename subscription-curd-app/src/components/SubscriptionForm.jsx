@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import '../style/SubscriptionForm.css'
+import { validateGridDetails } from "../utils/utils"; 
 
 const SubscriptionForm = () => {
   const [subscriptionName, setSubscriptionName] = useState("");
@@ -32,6 +33,14 @@ const SubscriptionForm = () => {
   // Function to handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
+    const validationErrors = validateGridDetails(gridDetails);
+
+    if (validationErrors.length > 0) {
+      // If there are validation errors, display them and prevent form submission
+      console.log("Validation errors:", validationErrors);
+      alert(validationErrors)
+      return;
+    }
     console.log("subscriptionName", subscriptionName);
     console.log("gridDetails", gridDetails);
     // Implement form submission logic here
