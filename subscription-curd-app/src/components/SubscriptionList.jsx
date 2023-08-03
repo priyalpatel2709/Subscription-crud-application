@@ -8,7 +8,6 @@ import {
   updateSubscription,
 } from "../services/subscriptionService";
 
-
 const SubscriptionList = () => {
   const [subscriptions, setSubscriptions] = useState([]);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -43,31 +42,31 @@ const SubscriptionList = () => {
             ? { ...editedGridDetail }
             : gridDetail
       );
-  
+
       // Update the edited subscription with the updated grid details array
       const updatedSubscription = {
         ...editedSubscription,
         gridDetails: updatedGridDetailsArray, // Update the grid details
       };
-  
+
       // Make the API call to update the subscription
       const updatedSubscriptionData = await updateSubscription(
         updatedSubscription,
         editedGridDetail._id
       );
-  
+
       // Find the index of the subscription in the array
       const subscriptionIndex = subscriptions.findIndex(
         (subscription) => subscription._id === updatedSubscriptionData._id
       );
-  
+
       // Create a new subscriptions array with the updated subscription at the correct index
       const updatedSubscriptions = [...subscriptions];
       updatedSubscriptions[subscriptionIndex] = updatedSubscriptionData;
-  
+
       // Update the state with the modified subscriptions array
       setSubscriptions(updatedSubscriptions);
-  
+
       // Hide the edit modal and reload the data
       setShowEditModal(false);
       loadData();
@@ -75,7 +74,6 @@ const SubscriptionList = () => {
       console.log(err);
     }
   };
-  
 
   const handleRemoveDate = async (subscriptionId, dateId) => {
     try {
@@ -102,45 +100,45 @@ const SubscriptionList = () => {
   return (
     <div>
       <h2>Subscription List</h2>
-      {
-        subscriptions.length >0 ? 
-      subscriptions?.map((subscription) => (
-        <div key={subscription._id} className="subscription-container">
-          <h3>{subscription.name}</h3>
-          <button
-            className="remove-button"
-            onClick={() => handleRemoveUser(subscription._id)}
-          >
-            Remove
-          </button>
-          <ul>
-            {subscription.gridDetails.map((gridDetail, index) => (
-              <li key={gridDetail._id}>
-                Date: {new Date(gridDetail.date).toLocaleDateString()}, Start
-                Time: {gridDetail.startTime}, End Time: {gridDetail.endTime}
-                <button
-                  className="edit-button"
-                  onClick={() => handleEditRow(subscription, gridDetail)}
-                >
-                  Edit Detail
-                </button>
-                <button
-                  className="remove-button"
-                  onClick={() =>
-                    handleRemoveDate(subscription._id, gridDetail._id)
-                  }
-                >
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))
-      : <>
-      <span>No Subscription Added</span>
-      </>
-      }
+      {subscriptions.length > 0 ? (
+        subscriptions?.map((subscription) => (
+          <div key={subscription._id} className="subscription-container">
+            <h3>{subscription.name}</h3>
+            <button
+              className="remove-button"
+              onClick={() => handleRemoveUser(subscription._id)}
+            >
+              Remove
+            </button>
+            <ul>
+              {subscription.gridDetails.map((gridDetail, index) => (
+                <li key={gridDetail._id}>
+                  Date: {new Date(gridDetail.date).toLocaleDateString()}, Start
+                  Time: {gridDetail.startTime}, End Time: {gridDetail.endTime}
+                  <button
+                    className="edit-button"
+                    onClick={() => handleEditRow(subscription, gridDetail)}
+                  >
+                    Edit Detail
+                  </button>
+                  <button
+                    className="remove-button"
+                    onClick={() =>
+                      handleRemoveDate(subscription._id, gridDetail._id)
+                    }
+                  >
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      ) : (
+        <>
+          <span>No Subscription Added</span>
+        </>
+      )}
 
       {/* Edit Modal */}
       {showEditModal && (

@@ -8,28 +8,34 @@ export const fetchSubscriptions = async () => {
     return response.data;
   } catch (error) {
     console.error("Error fetching subscriptions:", error);
-    throw error; 
+    throw error;
   }
 };
 
 export const createSubscription = async (subscription) => {
   try {
-    const response = await axios.post(`${BASE_URL}/subscriptions`, subscription);
+    const response = await axios.post(
+      `${BASE_URL}/subscriptions`,
+      subscription
+    );
     return response.data;
   } catch (error) {
     console.error("Error creating subscription:", error);
-    throw error; 
+    throw error;
   }
 };
 
 export const updateSubscription = async (subscription, id) => {
   try {
-    console.log('subscription', subscription);
-    const response = await axios.put(`${BASE_URL}/update/${subscription._id}/${id}`, subscription);
+    console.log("subscription", subscription);
+    const response = await axios.put(
+      `${BASE_URL}/update/${subscription._id}/${id}`,
+      subscription
+    );
     return response.data;
   } catch (error) {
     console.error("Error updating subscription:", error);
-    throw error; 
+    throw error;
   }
 };
 
@@ -38,7 +44,7 @@ export const deleteSubscription = async (id) => {
     await axios.delete(`${BASE_URL}/subscriptions-delete/${id}`);
   } catch (error) {
     console.error("Error deleting subscription:", error);
-    throw error; 
+    throw error;
   }
 };
 
@@ -49,6 +55,6 @@ export const deleteSubscriptionDate = async (subscriptionId, gridDetailId) => {
     );
   } catch (error) {
     console.error("Error deleting subscription date:", error);
-    throw error; 
+    throw error;
   }
 };

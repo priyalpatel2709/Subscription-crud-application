@@ -11,7 +11,6 @@ app.get("/", (req, resp) => {
 });
 
 app.post("/subscriptions", async (req, res) => {
-  // console.log("req.body", req.body);
   const { name, gridDetails } = req.body;
 
   try {
@@ -53,7 +52,6 @@ app.get("/subscriptions", async (req, resp) => {
 
 app.put("/update/:id/:gridDetailId", async (req, resp) => {
   try {
-    console.log(req.body);
     const { name, _id, gridDetails } = req.body;
 
     // Create an object to hold the updated subscription fields
@@ -71,9 +69,6 @@ app.put("/update/:id/:gridDetailId", async (req, resp) => {
       );
       updateFields.gridDetails = updatedGridDetailsArray;
     }
-
-    console.log(updateFields);
-
     // Use the extracted updateFields in the updateOne method
     let result = await Subscription.updateOne(
       {
@@ -92,11 +87,11 @@ app.put("/update/:id/:gridDetailId", async (req, resp) => {
 
 app.delete("/subscriptions-delete/:id", async (req, resp) => {
   try {
-    // console.log('req.params.id',req.params.id);
+    
     const result = await Subscription.deleteOne({
       _id: req.params.id,
     });
-    // console.log("result",result);
+    
     resp.send(result);
   } catch {
     resp.send({ result: "some thing went wrong  please try after some time" });
