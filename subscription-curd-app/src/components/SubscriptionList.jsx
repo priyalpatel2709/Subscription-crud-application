@@ -101,7 +101,9 @@ const SubscriptionList = () => {
   return (
     <div>
       <h2>Subscription List</h2>
-      {subscriptions?.map((subscription) => (
+      {
+        subscriptions.length >0 ? 
+      subscriptions?.map((subscription) => (
         <div key={subscription._id} className="subscription-container">
           <h3>{subscription.name}</h3>
           <button
@@ -133,7 +135,11 @@ const SubscriptionList = () => {
             ))}
           </ul>
         </div>
-      ))}
+      ))
+      : <>
+      <span>No Subscription Added</span>
+      </>
+      }
 
       {/* Edit Modal */}
       {showEditModal && (
