@@ -10,9 +10,10 @@ const SubscriptionForm = () => {
 
   // Function to handle adding a new row to the grid details
   const handleAddGridRow = () => {
+    const uniqueId = new Date().getTime();
     setGridDetails((prevGridDetails) => [
       ...prevGridDetails,
-      { date: "", startTime: "", endTime: "" },
+      {id: uniqueId, date: "", startTime: "", endTime: "" },
     ]);
   };
 

@@ -12,8 +12,9 @@ export const createSubscription = async (subscription) => {
   return response.data;
 };
 
-export const updateSubscription = async (subscription) => {
-  const response = await axios.put(`${BASE_URL}/update/${subscription.id}`, subscription);
+export const updateSubscription = async (subscription,id) => {
+  console.log('subscription',subscription);
+  const response = await axios.put(`${BASE_URL}/update/${subscription._id}/${id}`, subscription);
   return response.data;
 };
 

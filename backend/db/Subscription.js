@@ -5,6 +5,7 @@ const gridDetailSchema = new mongoose.Schema({
   date: { type: Date, required: true },
   startTime: { type: String, required: true },
   endTime: { type: String, required: true },
+  id: { type:String,require:true }
 });
 
 // Define the schema for the subscription

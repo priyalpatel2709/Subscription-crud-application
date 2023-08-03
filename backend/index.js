@@ -11,7 +11,7 @@ app.get("/", (req, resp) => {
 });
 
 app.post("/subscriptions", async (req, res) => {
-  console.log("req.body", req.body);
+  // console.log("req.body", req.body);
   const { name, gridDetails } = req.body;
 
   try {
@@ -20,8 +20,8 @@ app.post("/subscriptions", async (req, res) => {
 
     // Iterate over the gridDetails from the request and push each grid detail object into the gridDetailsArray
     for (const gridDetail of gridDetails) {
-      const { date, startTime, endTime } = gridDetail;
-      gridDetailsArray.push({ date, startTime, endTime });
+      const { date, startTime, endTime,id } = gridDetail;
+      gridDetailsArray.push({ date, startTime, endTime , id });
     }
 
     // Create a new subscription with the array of gridDetails
@@ -51,16 +51,39 @@ app.get("/subscriptions", async (req, resp) => {
   }
 });
 
-app.put("/update/:id", async (req, resp) => {
+app.put("/update/:id/:gridDetailId", async (req, resp) => {
   try {
+    console.log(req.body);
+    const { name, _id, gridDetails } = req.body;
+
+    // Create an object to hold the updated subscription fields
+    const updateFields = {};
+
+    // Update the name if provided
+    if (name) {
+      updateFields.name = name;
+    }
+
+    // Update the specific grid detail in the gridDetails array
+    if (_id && gridDetails) {
+      const updatedGridDetailsArray = gridDetails.map((gridDetail) =>
+        gridDetail._id === _id ? { ...gridDetail } : gridDetail
+      );
+      updateFields.gridDetails = updatedGridDetailsArray;
+    }
+
+    console.log(updateFields);
+
+    // Use the extracted updateFields in the updateOne method
     let result = await Subscription.updateOne(
       {
         _id: req.params.id,
       },
       {
-        $set: req.body,
+        $set: updateFields,
       }
     );
+
     resp.send(result);
   } catch (err) {
     resp.send({ result: err });
@@ -69,7 +92,7 @@ app.put("/update/:id", async (req, resp) => {
 
 app.delete("/subscriptions-delete/:id", async (req, resp) => {
   try {
-    console.log('req.params.id',req.params.id);
+    // console.log('req.params.id',req.params.id);
     const result = await Subscription.deleteOne({
       _id: req.params.id,
     });
