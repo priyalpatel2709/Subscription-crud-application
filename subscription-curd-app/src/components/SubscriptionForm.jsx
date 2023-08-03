@@ -78,7 +78,6 @@ const SubscriptionForm = () => {
             value={subscriptionName}
             onChange={(e) => setSubscriptionName(e.target.value)}
             required
-            className="input-feld"
           />
         </div>
 

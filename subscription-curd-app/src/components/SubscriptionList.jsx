@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "../style/SubscriptionList.css";
 import {
   fetchSubscriptions,
@@ -6,7 +7,7 @@ import {
   deleteSubscription,
   updateSubscription,
 } from "../services/subscriptionService";
-import { Link } from "react-router-dom";
+
 
 const SubscriptionList = () => {
   const [subscriptions, setSubscriptions] = useState([]);
